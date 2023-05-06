@@ -27,8 +27,8 @@
 	function toNormal(url) {   
 		url = clean(url);
 		if (isSimple(url)) {
-			var re = /^http\:\/\/simple\.wikipedia\./i
-			return url.replace(re, "http://www.wikipedia.");
+			var re = /^https\:\/\/simple\.wikipedia\./i
+			return url.replace(re, "https://www.wikipedia.");
 		}
 		return url;
 	}   
@@ -36,14 +36,14 @@
 	function toSimple(url) {   
 		url = clean(url);
 		if (isNormal(url)) {
-			var re = /http\:\/\/\w*\.?wikipedia\./i
-			return url.replace(re, "http://simple.wikipedia.");
+			var re = /https\:\/\/\w*\.?wikipedia\./i
+			return url.replace(re, "https://simple.wikipedia.");
 		}
 		return url;
 	}
 	
 	function isSimple(url) {
-		var re = /^http\:\/\/simple\.wikipedia\./i
+		var re = /^https\:\/\/simple\.wikipedia\./i
 		url = clean(url);
 		return re.test(url) && isUrl(url);
 	}   
@@ -63,9 +63,9 @@
 		if (isUrl(url)) return url;
 		var re = /\.wikipedia\.\w+/i
 		if (re.test(url))
-			newUrl = "http://" + url;
+			newUrl = "https://" + url;
 		else 
-		    newUrl = ("http://en.wikipedia.org/wiki/" + url).replace(/ /g, "_");
+		    newUrl = ("https://en.wikipedia.org/wiki/" + url).replace(/ /g, "_");
 		
 		if (isUrl(newUrl)) return newUrl;
 		return url;
@@ -73,7 +73,7 @@
 	
 	function printable(url) {
 		if ($("check").checked) return url;
-		var re = /(http:\/\/.*\/)(.*)/i
+		var re = /(https:\/\/.*\/)(.*)/i
 		return url.replace(re, "$1w/index.php?title=$2&printable=yes").replace(/\/wiki\//, "/");
 	}
 	
@@ -276,7 +276,7 @@
 
 </style>
 </head>
-<body onload="display('http://en.wikipedia.org/wiki/Pi')">
+<body onload="display('https://en.wikipedia.org/wiki/Pi')">
 
 <!--http://www.aperfectworld.org/cartoons.html-->
 <div class="head" id="head">                 
@@ -294,18 +294,18 @@
 		<br>
 		Or, try some of these:
 		<select id="s" onchange="selected()">
-			<option value="http://en.wikipedia.org/wiki/Pi">Pi</option>
-			<option value="http://en.wikipedia.org/wiki/Boson">Boson</option>
-			<option value="http://en.wikipedia.org/wiki/Cheese">Cheese</option>
-			<option value="http://en.wikipedia.org/wiki/Platypus">Platypus</option>
-			<option value="http://en.wikipedia.org/wiki/Bacon">Bacon</option>
-			<option value="http://en.wikipedia.org/wiki/String_theory">String theory</option>
-			<option value="http://en.wikipedia.org/wiki/Quantum_mechanics">Quantum mechanics</option>
-			<option value="http://en.wikipedia.org/wiki/God">God</option>
-			<option value="http://en.wikipedia.org/wiki/Global_financial_crisis_of_September%E2%80%93October_2008">Global financial crisis</option>
-			<option value="http://en.wikipedia.org/wiki/World_War_II">World War II</option>
-			<option value="http://en.wikipedia.org/wiki/Death">Death</option>
-			<option value="http://en.wikipedia.org/wiki/Rabbit">BUNNIES!</option>
+			<option value="https://en.wikipedia.org/wiki/Pi">Pi</option>
+			<option value="https://en.wikipedia.org/wiki/Boson">Boson</option>
+			<option value="https://en.wikipedia.org/wiki/Cheese">Cheese</option>
+			<option value="https://en.wikipedia.org/wiki/Platypus">Platypus</option>
+			<option value="https://en.wikipedia.org/wiki/Bacon">Bacon</option>
+			<option value="https://en.wikipedia.org/wiki/String_theory">String theory</option>
+			<option value="https://en.wikipedia.org/wiki/Quantum_mechanics">Quantum mechanics</option>
+			<option value="https://en.wikipedia.org/wiki/God">God</option>
+			<option value="https://en.wikipedia.org/wiki/Global_financial_crisis_of_September%E2%80%93October_2008">Global financial crisis</option>
+			<option value="https://en.wikipedia.org/wiki/World_War_II">World War II</option>
+			<option value="https://en.wikipedia.org/wiki/Death">Death</option>
+			<option value="https://en.wikipedia.org/wiki/Rabbit">BUNNIES!</option>
 		</select>
 		<br>
 		Or, try a random article:        
