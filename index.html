@@ -1,0 +1,373 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title>Again But Slower Dot Com</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+
+<script src="prototype.js" type="text/javascript"></script>
+<script src="scriptaculous.js" type="text/javascript"></script>
+<script src="articles.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-163688-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<script type="text/javascript">  
+//<![CDATA[
+
+	function toNormal(url) {   
+		url = clean(url);
+		if (isSimple(url)) {
+			var re = /^http\:\/\/simple\.wikipedia\./i
+			return url.replace(re, "http://www.wikipedia.");
+		}
+		return url;
+	}   
+
+	function toSimple(url) {   
+		url = clean(url);
+		if (isNormal(url)) {
+			var re = /http\:\/\/\w*\.?wikipedia\./i
+			return url.replace(re, "http://simple.wikipedia.");
+		}
+		return url;
+	}
+	
+	function isSimple(url) {
+		var re = /^http\:\/\/simple\.wikipedia\./i
+		url = clean(url);
+		return re.test(url) && isUrl(url);
+	}   
+	
+	function isNormal(url) {
+		var re = /\.wikipedia\.\w+/i
+		url = clean(url);
+		return re.test(url) && isUrl(url) && !isSimple(url);
+	}
+	
+	function isUrl(s) {
+		var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/i
+		return regexp.test(s);
+	}
+	
+	function clean(url) {
+		if (isUrl(url)) return url;
+		var re = /\.wikipedia\.\w+/i
+		if (re.test(url))
+			newUrl = "http://" + url;
+		else 
+		    newUrl = ("http://en.wikipedia.org/wiki/" + url).replace(/ /g, "_");
+		
+		if (isUrl(newUrl)) return newUrl;
+		return url;
+	}                                         
+	
+	function printable(url) {
+		if ($("check").checked) return url;
+		var re = /(http:\/\/.*\/)(.*)/i
+		return url.replace(re, "$1w/index.php?title=$2&printable=yes").replace(/\/wiki\//, "/");
+	}
+	
+	function blank() {
+		$("f1").src="blank.html";
+		$("f2").src="blank.html";
+	}
+	
+	function go(url) {
+		blank();
+		setTimeout('display(\'' + url + '\')', 500);
+	}
+	
+	function done() {
+		//alert("done!");
+	}
+	    
+	function random() {        
+		$("url").value="";
+		go(a[Math.round(Math.random() * a.length)]);
+	}
+	
+	function doneRandom() {
+	}
+	
+	function loaded() {
+		alert(xmlDoc.responseText);
+	}
+	
+	function display(url) {
+		n=toNormal(url);
+		s=toSimple(url);
+		$("a1").innerHTML = '<a href="' + n + '">Original article:<\/a>';
+		$("a2").innerHTML = '<a href="' + s + '">Simple article:<\/a>';
+		$("f1").src=printable(n);
+		$("f2").src=printable(s);
+		$("url").value=n;
+		new Effect.Highlight("url");
+	}
+
+	function selected() {
+//		blank();
+		var url=$("s").options[$("s").selectedIndex].value;
+		go(url);
+	}
+	
+	function checked() {
+		alert("here");
+//		go($("url").value);
+	}      
+	
+	function help() {                
+		$("helplink").innerHTML = '<span style="color: #666">What is all this?<\/span>'
+		Effect.BlindDown("help");
+	}
+	
+	function helpClose() {
+		Effect.BlindUp('help')		
+		$("helplink").innerHTML = '<i><a href="javascript:help()">What is all this?<\/a><\/i>'
+	}
+	
+	function mouseup(elem) {
+		$(elem).style.backgroundColor="#cadcd7";
+	}
+//]]>	
+</script>
+
+<style type="text/css">                
+	* {
+		font-family: sans-serif;
+		font-size: 10pt;
+	}
+	html { height: 100%;}
+	body {
+		background-color: #cadcd7;
+		height: 90%;
+		min-height: 400px;
+		width: 100%;
+		margin: auto;
+		padding-left: 1em;
+		padding-top: 1em;
+		
+	}
+	input, select, option {
+		font-size: 9pt;
+		color: #333;
+	}           
+	.main {
+		height: 100%;
+		width: 90%;
+		border-left: 2px solid black;
+		border-right: 2px solid black;
+		border-bottom: 2px solid black;
+		border-top: 1px solid black;
+	}
+	.t {
+		width: 100%;
+		height: 100%;
+		border-collapse: true;
+		background-color: #e8ffde;
+	}
+	.ht {
+	}
+	iframe {
+		width: 95%;  
+		height: 95%;
+		margin-top: 0.5em;
+		margin-left: 0.5em;
+		border: none;
+	}
+	#d1, #d2 {
+		width: 100%;
+		height: 92%;
+		border: none;
+		background-color: #fff;
+		border: 2px solid black;
+	}
+	
+	.o1 {
+		height: 100%;
+		background-color: #e8ffde;
+		padding-left: 14px;
+		padding-right: 7px; 
+		margin-bottom: 14px;
+	}
+	
+	.o2 {
+		height: 100%;
+		background-color: #e8ffde;
+		padding-left: 7px;
+		padding-right: 14px;
+	}
+	
+	.head {                      
+		width: 90%;
+		border-top: 2px solid black;
+		border-left: 2px solid black;
+		border-right: 2px solid black;
+		border-bottom: 1px solid black;
+		margin-top: 0;            
+		padding-top: 3px;
+		padding-bottom: 3px;
+		background-color: #c7d99a;
+	}
+	
+	#headopen {
+		border-bottom: 2px solid black;
+	}
+	
+	.framehead {
+		padding-bottom: 2px;
+		margin: 0;
+		background-color: #e8ffde;
+		font-weight: bold;
+		width: 100%;
+		text-align: center;
+	}
+	#help {
+		background-color: #cadcd7;
+		margin: 0;
+		text-align:center;
+		width: 90%;
+	}
+	.help {        
+	}                  
+	a {
+		color: #bf6321;
+	}
+	form { margin: 0; padding: 0;}   
+	
+	.example {    
+		display: inline;
+		color: red;
+	}  
+	
+	a.button {
+		padding: 2px;
+		padding-left: 7px;
+		padding-right: 7px;
+		background-color: #cadcd7;
+		color: black;
+		white-space: nowrap;
+		text-decoration: none;
+		font-style: italic;
+		display: inline;
+		border: thin solid black;
+		font-size: 8pt;
+	}               
+	
+	a.button:hover {
+		background-color: #daece7;
+	}
+	
+	a.button:active {
+		background-color: #999;
+		color: white;
+	}
+	
+
+
+</style>
+</head>
+<body onload="display('http://en.wikipedia.org/wiki/Pi')">
+
+<!--http://www.aperfectworld.org/cartoons.html-->
+<div class="head" id="head">                 
+	<center>
+	<table class="ht">
+		<tr valign="middle">
+			<td style="width: 174px"><img src="oldman.gif" alt="oldman"></td>
+			<td>
+				<center>
+		<form onsubmit="return false;" action="">
+		Enter a Wikipedia article name or URL to check for a simpler one: <br>
+		<input id="url" type="text" name="url" size="40">
+		<a class="button" href="#" onclick="go($('url').value)" onmouseup="mouseup(this)"><span>Again, but slower</span></a>
+		<!--<input type="submit" onclick="go($('url').value)" value="Again, but slower">-->
+		<br>
+		Or, try some of these:
+		<select id="s" onchange="selected()">
+			<option value="http://en.wikipedia.org/wiki/Pi">Pi</option>
+			<option value="http://en.wikipedia.org/wiki/Boson">Boson</option>
+			<option value="http://en.wikipedia.org/wiki/Cheese">Cheese</option>
+			<option value="http://en.wikipedia.org/wiki/Platypus">Platypus</option>
+			<option value="http://en.wikipedia.org/wiki/Bacon">Bacon</option>
+			<option value="http://en.wikipedia.org/wiki/String_theory">String theory</option>
+			<option value="http://en.wikipedia.org/wiki/Quantum_mechanics">Quantum mechanics</option>
+			<option value="http://en.wikipedia.org/wiki/God">God</option>
+			<option value="http://en.wikipedia.org/wiki/Global_financial_crisis_of_September%E2%80%93October_2008">Global financial crisis</option>
+			<option value="http://en.wikipedia.org/wiki/World_War_II">World War II</option>
+			<option value="http://en.wikipedia.org/wiki/Death">Death</option>
+			<option value="http://en.wikipedia.org/wiki/Rabbit">BUNNIES!</option>
+		</select>
+		<br>
+		Or, try a random article:        
+		<a class="button" href="#" onclick="random(); return false;" onmouseup="mouseup(this)"><span>Random</span></a>
+		Check here for full formatting: 
+		<input type="checkbox" id="check" onclick="go($('url').value)"> 
+		</form>
+ </center>
+</td>
+<td align="right" nowrap="nowrap">
+	<i><ul><li><div id="helplink" class="help"><a href="javascript:help()">What is all this?</a></div></li><li><a href="mailto:doranchak@gmail.com">Contact me</a></li><li><a href="http://oranchak.com">oranchak.com</a></li></ul></i>
+	
+</td>
+</tr>   	
+	</table>             
+</center>
+</div>
+
+<div id="help" style="display:none;">
+		<center>
+			<table style="width: 90%">
+			<tr valign="top">
+				<td>
+		<a href="http://xkcd.com/547/"><img border="0" style="margin-top: 1em" src="simple-200.png" alt="xkcd comic"></a>
+		</td>
+		<td style="padding-left: 1em; font-size: 9pt">
+			<p>I saw this <a href="http://xkcd.com/547/">xkcd comic</a> recently, and it made me want to be able to see Wikipedia articles side-by-side with their "simple" counterparts.  "<i>Simple English Wikipedia</i> is a version of the Wikipedia encyclopedia, written in <a href="http://en.wikipedia.org/wiki/Simple_English_Wikipedia">Simple English</a> and started in 2004.  The encyclopedia is supposed to be used by children, who might not understand the complicated articles in the English Wikipedia, and other people who are still learning English."</p>
+			<p> 
+			   To see articles side-by-side, type an article name in the box (for example, <span class="example">War</span>, or <span class="example">Peace</span>, or <span class="example">Chocolate</span>).  Or, paste the article's URL directly from wikipedia (for example, <span class="example">http://en.wikipedia.org/wiki/Time_Cube</span>).  Then click the "Again, but slower" button.  This page will try to load the original article and the simplified article side-by-side.  If it doesn't find the simple version, try a different article, because not all of Wikipedia's articles have been translated into simple versions.
+			</p>
+			<p>
+				You can also try some examples by choosing one from the pulldown list above.  Or, try your luck with a random article by clicking the <b>Random</b>  button.  If you click the <b>full formatting</b> checkbox, the original formatting of the Wikipedia articles will be displayed (we display the printable stripped-down format by default).
+			</p>
+			<p>
+				Feel free to <a href="mailto:doranchak@gmail.com">email me</a> with any questions, comments, suggestions, etc.!
+			</p>
+				</td>
+		</tr>
+		</table>
+		<a class="button" href="#" onclick="helpClose();" onmouseup="mouseup(this)"><span>Close Help</span></a>
+		<p></p>
+		</center>
+</div>
+        
+<div class="main">
+<table class="t" cellspacing="0" cellpadding="0">
+	<tr>
+		<td class="o1">
+			<div class="framehead" id="a1">Original article:</div>
+			<div id="d1">
+			<iframe id="f1" src="blank.html"></iframe>
+			</div>
+		</td>
+		<td class="o2">
+			<div class="framehead" id="a2">Simple article:</div>
+			<div id="d2">
+			<iframe id="f2" src="blank.html"></iframe>
+		</div>
+		</td>
+	</tr>
+</table>
+</div>
+</body>
+</html>
+
